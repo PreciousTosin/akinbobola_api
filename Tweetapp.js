@@ -14,16 +14,17 @@ var Tweetpull = function(){
 	});	
 
 	Tweetpull.prototype.read = function(){
-		this.interface.question('What is your username?', function(username){
+		this.interface.question('What is your username? ', function(username){
 			var params = {screen_name: username};
 			this.client.get('statuses/user_timeline', params, function(error, tweets, response){
 				if (!error){
-					console.log(tweets);
+					//console.log(tweets);
+					//console.log(error);
+					console.log(response);
 				}
-			});
-			console.log('Thank you for your valuable feedback:', answer);
-  			rl.close();
-		});
+			}.bind(this));
+  		this.interface.close();
+		}.bind(this));
 	}
 }
 
