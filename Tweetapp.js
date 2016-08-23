@@ -14,13 +14,16 @@ var Tweetpull = function(){
 		input: process.stdin,
   		output: process.stdout
 	});	
-
+	
 	Tweetpull.prototype.read = function(){
 		this.interface.question('What is your username? ', function(username){
-			var params = {user_id: username, count:2};
+			var params = {user_id: username, count:10};
 			this.client.get('statuses/home_timeline', params, function(error, data, response){
 				if (!error){
-					console.log(data);	
+					var tweet = data;
+					for(var i = 0; i < tweet.length; i++){
+							console.log(tweet[i].text);
+					}	
 				}
 			}.bind(this));
   		this.interface.close();
