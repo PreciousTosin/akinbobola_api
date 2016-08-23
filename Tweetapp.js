@@ -14,7 +14,7 @@ var Tweetpull = function(){
 		input: process.stdin,
   		output: process.stdout
 	});	
-	
+
 	Tweetpull.prototype.read = function(){
 		this.interface.question('What is your username? ', function(username){
 			var params = {user_id: username, count:10};
@@ -29,9 +29,22 @@ var Tweetpull = function(){
   		this.interface.close();
 		}.bind(this));
 	}
+
+	Tweetpull.prototype.post = function(){
+		this.interface.question('What is your new status: ', function(tweet){
+			var params = {status: tweet};
+			this.client.post('statuses/update', params, function(error, data, response){
+				if(!error){
+					console.log(data);
+				}
+			}.bind(this));
+			this.interface.close();
+		}.bind(this));
+	}
 }
 
-
+	
 
 var twitter = new Tweetpull();
 twitter.read();
+twitter.post();

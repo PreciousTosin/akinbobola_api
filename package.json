@@ -1,0 +1,24 @@
+{
+  "name": "akinbobola_api",
+  "version": "1.0.0",
+  "description": "Develop a restful API",
+  "main": "Tweetapp.js",
+  "dependencies": {
+    "request": "^2.74.0",
+    "twitter": "^1.4.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PreciousTosin/akinbobola_api.git"
+  },
+  "author": "Akinbobola Tosin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PreciousTosin/akinbobola_api/issues"
+  },
+  "homepage": "https://github.com/PreciousTosin/akinbobola_api#readme"
+}
