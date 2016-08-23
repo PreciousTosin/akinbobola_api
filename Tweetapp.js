@@ -1,11 +1,13 @@
-var Twitter = require('twitter');
+
+var Twit = require('twit');
 var readline = require('readline');
 
 var Tweetpull = function(){
-	this.client = new Twitter({
-		consumer_key: 'mgkWhDuPTDyN8ROnLM9XrkUx5',
-		consumer_secret:'BsZPvOeHtjiv3WBn2qZUi35zWlqxn1TlKymG8XzbGijc0TjB3E',
-		bearer_token:'92459786-v5aHqXUFBehWAaawKWwQVMO339DmlkDxR8BmtGeJx'
+	this.client = new Twit({
+		consumer_key: 'TXyXe0Xflb7787yLKWO1Ux8Vw',
+		consumer_secret:'SCVl9IBUwqLRqYW4PqcM82e4bBF7Hg6A8ucL0J1l90Hp2qxUqA',
+		access_token: '92459786-ljSWwj7gQ101O7fnEqSc4UUpPMY1ICIZaL3zyUw5L',
+  	access_token_secret: 'LARvh9CsfVsnkfnvMmMgyVqyp1ABKKEKtRnRGQLqnVPeS'
 	});
 
 	this.interface = readline.createInterface({
@@ -15,18 +17,17 @@ var Tweetpull = function(){
 
 	Tweetpull.prototype.read = function(){
 		this.interface.question('What is your username? ', function(username){
-			var params = {screen_name: username};
-			this.client.get('statuses/user_timeline', params, function(error, tweets, response){
+			var params = {user_id: username, count:2};
+			this.client.get('statuses/home_timeline', params, function(error, data, response){
 				if (!error){
-					//console.log(tweets);
-					//console.log(error);
-					console.log(response);
+					console.log(data);	
 				}
 			}.bind(this));
   		this.interface.close();
 		}.bind(this));
 	}
 }
+
 
 
 var twitter = new Tweetpull();
