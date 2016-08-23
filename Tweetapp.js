@@ -1,46 +1,43 @@
 
 var Twit = require('twit');
 var readline = require('readline');
+var config = require('./config');
 
-var Tweetpull = function(){
-	this.client = new Twit({
-		consumer_key: 'TXyXe0Xflb7787yLKWO1Ux8Vw',
-		consumer_secret:'SCVl9IBUwqLRqYW4PqcM82e4bBF7Hg6A8ucL0J1l90Hp2qxUqA',
-		access_token: '92459786-ljSWwj7gQ101O7fnEqSc4UUpPMY1ICIZaL3zyUw5L',
-  	access_token_secret: 'LARvh9CsfVsnkfnvMmMgyVqyp1ABKKEKtRnRGQLqnVPeS'
-	});
+	var Tweetpull = function(){
 
-	this.interface = readline.createInterface({
-		input: process.stdin,
-  		output: process.stdout
-	});	
+		this.client = new Twit(config);//config module contains the authentication tokens
 
-	Tweetpull.prototype.read = function(){
-		this.interface.question('What is your username? ', function(username){
-			var params = {user_id: username, count:10};
-			this.client.get('statuses/home_timeline', params, function(error, data, response){
-				if (!error){
-					var tweet = data;
-					for(var i = 0; i < tweet.length; i++){
-							console.log(tweet[i].text);
-					}	
-				}
+		this.interface = readline.createInterface({
+			input: process.stdin,
+	  	output: process.stdout
+		});	
+
+		Tweetpull.prototype.read = function(){
+			this.interface.question('What is your username? ', function(username){
+				var params = {user_id: username, count:10};
+				this.client.get('statuses/home_timeline', params, function(error, data, response){
+					if (!error){
+						var tweet = data;
+						for(var i = 0; i < tweet.length; i++){
+								console.log(tweet[i].text);
+						}	
+					}
+				}.bind(this));
+	  		this.interface.close();
 			}.bind(this));
-  		this.interface.close();
-		}.bind(this));
-	}
+		}
 
-	Tweetpull.prototype.post = function(){
-		this.interface.question('What is your new status: ', function(tweet){
-			var params = {status: tweet};
-			this.client.post('statuses/update', params, function(error, data, response){
-				if(!error){
-					console.log(data);
-				}
+		Tweetpull.prototype.post = function(){
+			this.interface.question('What is your new status: ', function(tweet){
+				var params = {status: tweet};
+				this.client.post('statuses/update', params, function(error, data, response){
+					if(!error){
+						console.log(data["text"]);
+					}
+				}.bind(this));
+				this.interface.close();
 			}.bind(this));
-			this.interface.close();
-		}.bind(this));
-	}
+		}
 }
 
 	
